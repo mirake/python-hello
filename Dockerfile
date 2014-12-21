@@ -1,9 +1,9 @@
 FROM ubuntu
 MAINTAINER mirake mirake@docker.com
 
-RUN apt-get update
-RUN apt-get install -y vim curl wget
-RUN apt-get install -y python-setuptools python-dev libmysqld-dev libmysqlclient-dev  
+RUN sudo apt-get update
+RUN sudo apt-get install -y vim curl wget
+RUN sudo apt-get install -y python-setuptools python-dev libmysqld-dev libmysqlclient-dev  
 RUN \
     wget http://tcpdiag.dl.sourceforge.net/project/mysql-python/mysql-python-test/1.2.4b4/MySQL-python-1.2.4b4.tar.gz && \
     tar -zxvf MySQL-python-1.2.4b4.tar.gz && \
