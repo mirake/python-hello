@@ -59,6 +59,6 @@ time.sleep(1)
 print "Starting server..."
 server = BaseHTTPServer.HTTPServer(('0.0.0.0',80), WebRequestHandler)
 server.serve_forever()
-print "Server starte
+print "Server starte"
 
 
