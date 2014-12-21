@@ -38,7 +38,7 @@ class WebRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 def showmysql(uid):
     ret = ""
     try:
-        conn=MySQLdb.connect(host='localhost',user='root',passwd='12345678',db='test',port=3306)
+        conn=MySQLdb.connect(host='172.31.20.234',user='root',passwd='12345678',db='test',port=3306)
         cur=conn.cursor()
         cur.execute('select * from tmp where id=%d ' % uid)
 
@@ -54,9 +54,11 @@ def showmysql(uid):
 
     return ret
 
+showmysql(random.randint(1,3))
 time.sleep(1)
 print "Starting server..."
 server = BaseHTTPServer.HTTPServer(('0.0.0.0',80), WebRequestHandler)
 server.serve_forever()
-print "Server started"
+print "Server starte
+
 
