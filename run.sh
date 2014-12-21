@@ -1,3 +1,3 @@
 #!/bin/bash
-/usr/bin/python  /a.py
+/usr/bin/python  /server.py
 
