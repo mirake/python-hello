@@ -3,6 +3,15 @@ import urlparse
 import time
 import MySQLdb
 import random
+import argparse
+import os
+
+
+db_host = ""
+db_port = 0
+db_user = ""
+db_pwd  = ""
+db_database = ""
 
 class WebRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -38,7 +47,7 @@ class WebRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 def showmysql(uid):
     ret = ""
     try:
-        conn=MySQLdb.connect(host='172.31.20.234',user='root',passwd='12345678',db='test',port=3306)
+        conn=MySQLdb.connect(host=db_host, user=db_user, passwd=db_pwd, db=db_database, port=db_port)
         cur=conn.cursor()
         cur.execute('select * from tmp where id=%d ' % uid)
 
@@ -54,11 +63,35 @@ def showmysql(uid):
 
     return ret
 
-showmysql(random.randint(1,3))
-time.sleep(1)
-print "Starting server..."
-server = BaseHTTPServer.HTTPServer(('0.0.0.0',80), WebRequestHandler)
-server.serve_forever()
-print "Server starte"
+
+
+if __name__ == '__main__':
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("-host", "--mysqlip", help='mysql ip')
+    # parser.add_argument("-port", "--mysqlport", help='mysql port')
+    # parser.add_argument("-u", "--mysqluser", help='mysql username')
+    # parser.add_argument("-p", "--mysqlpwd", help='mysql user password')
+    # parser.add_argument("-db", "--mysqldb", help='mysql database')
+    # args = parser.parse_args()
+    # print args
+
+    # db_host = args.mysqlip or "172.31.20.234"
+    # db_port = int(args.mysqlport) or 3306
+    # db_user = args.mysqluser or "root"
+    # db_pwd  = args.mysqlpwd or "12345678"
+    # db_database = args.mysqldb or "test"
+
+    db_host = os.getenv("DBHOST", "172.31.20.234")
+    db_port = int(os.getenv("DBPORT", "3306"))
+    db_user = os.getenv("DBUSER", "root")
+    db_pwd = os.getenv("DBPWD", "12345678")
+    db_database = os.getenv("DBNAME", "test")
+
+    # print showmysql(random.randint(1,3))
+    # time.sleep(1)
+    print "Starting server..."
+    server = BaseHTTPServer.HTTPServer(('0.0.0.0',80), WebRequestHandler)
+    server.serve_forever()
+    print "Server starte"
 
 

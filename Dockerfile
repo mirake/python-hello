@@ -1,10 +1,9 @@
 FROM ubuntu
 MAINTAINER mirake mirake@docker.com
 
-RUN apt-get update
-RUN apt-get install -y vim curl wget
-RUN apt-get install -y python-setuptools python-dev libmysqld-dev libmysqlclient-dev  
-RUN \
+RUN apt-get update && \
+    apt-get install -y vim curl wget && \
+    apt-get install -y python-setuptools python-dev libmysqld-dev libmysqlclient-dev && \ 
     wget http://tcpdiag.dl.sourceforge.net/project/mysql-python/mysql-python-test/1.2.4b4/MySQL-python-1.2.4b4.tar.gz && \
     tar -zxvf MySQL-python-1.2.4b4.tar.gz && \
     rm -f MySQL-python-1.2.4b4.tar.gz && \
@@ -14,10 +13,18 @@ RUN \
     python setup.py install && \
     cd / && \
     rm -f -r MySQL-python-1.2.4b4
-ADD server.py  /server.py
+RUN mkdir -p /app
+ADD server.py  /app/server.py
 ADD run.sh  /run.sh
 RUN chmod 755 /run.sh
-RUN mkdir -p /app
+
+
+ENV DBHOST=172.31.20.234 \
+    DBPORT=3306 \
+    DBUSER=root \
+    DBPWD=12345678 \
+    DBNAME=test
+
 
 # Define working directory.
 WORKDIR /app
