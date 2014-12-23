@@ -19,13 +19,6 @@ ADD run.sh  /run.sh
 RUN chmod 755 /run.sh
 
 
-#ENV DBHOST=172.31.20.234 \
-#    DBPORT=3306 \
-#    DBUSER=root \
-#    DBPWD=12345678 \
-#    DBNAME=test
-
-
 # Define working directory.
 WORKDIR /app
 
