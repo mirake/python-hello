@@ -6,7 +6,6 @@ import random
 import argparse
 import os
 
-
 db_host = ""
 db_port = 0
 db_user = ""
@@ -88,7 +87,7 @@ if __name__ == '__main__':
     db_database = os.getenv("DBNAME", "test")
 
     # print showmysql(random.randint(1,3))
-    # time.sleep(1)
+    time.sleep(10)
     print "Starting server..."
     server = BaseHTTPServer.HTTPServer(('0.0.0.0',80), WebRequestHandler)
     server.serve_forever()
